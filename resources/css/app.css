@@ -1,0 +1,8 @@
+@import "_tailwind.css";
+
+/* COMEÇO: Componentes */
+@import "components/_inputs.css";
+@import "components/_safe-area.css";
+@import "components/_buttons.css";
+@import "components/_form.css";
+/* FIM: Componentes */

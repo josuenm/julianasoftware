@@ -1,0 +1,7 @@
+.normal-input {
+    @apply outline-none border border-neutral-200 rounded-md px-4 py-2 duration-300 shadow-zero focus:shadow-focus focus:border-transparent;
+}
+
+.input-error {
+    @apply border-red-500;
+}

@@ -1,0 +1,3 @@
+.safe-area {
+    @apply max-w-[1100px] w-full mx-auto;
+}

@@ -3,6 +3,9 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Status;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -13,12 +16,33 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        \App\Models\User::factory(1)->create();
+        if (!User::where('email', 'juliana12091312937@gmail.com')->exists()) {
+            User::factory()->create([
+                'name' => 'Juliana',
+                'email' => 'juliana12091312937@gmail.com',
+                'password' => Hash::make('Juliana123')
+            ]);
+        }
 
-        \App\Models\User::factory()->create([
-            'name' => 'Juliana',
-            'email' => 'juliana12091312937@gmail.com',
-            'password' => Hash::make('Juliana123')
-        ]);
+        $status = new Status();
+
+        if (!Status::where('title', 'Em processamento')->exists()) {
+            $status = new Status([
+                'title' => 'Em processamento'
+            ]);
+            $status->save();
+        }
+        if (!Status::where('title', 'Falhou')->exists()) {
+            $status = new Status([
+                'title' => 'Falhou'
+            ]);
+            $status->save();
+        }
+        if (!Status::where('title', 'Finalizado')->exists()) {
+            $status = new Status([
+                'title' => 'Finalizado'
+            ]);
+            $status->save();
+        }
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Auth\InicioController;
+use App\Http\Controllers\Auth\HomeController;
 use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,8 +15,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/entrar', [LoginController::class, 'index'])->name('entrar.index');
-Route::post('/auth/entrar', [LoginController::class, 'entrar'])->name('entrar.auth');
+Route::get('/entrar', [LoginController::class, 'index'])->name('login.index');
+Route::post('/auth/entrar', [LoginController::class, 'login'])->name('login.auth');
 
-
-Route::get('/', [InicioController::class, 'index'])->name('inicio.index');
+Route::middleware('auth')->group(function () {
+    Route::get('/', [HomeController::class, 'index'])->name('home.index');
+    Route::get('/importacoes', [HomeController::class, 'getImports'])->name('home.getImports');
+    Route::post('/importar', [HomeController::class, 'importExcel'])->name('home.importExcel');
+    Route::delete('/deletarArquivo/{id}', [HomeController::class, 'deleteFile'])->name('home.deleteFile');
+});

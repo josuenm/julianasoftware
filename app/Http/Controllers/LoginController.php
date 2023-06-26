@@ -10,11 +10,11 @@ class LoginController extends Controller
 {
     public function index()
     {
-        return view('entrar');
+        return view('login');
     }
 
 
-    public function entrar(Request $req)
+    public function login(Request $req)
     {
         $credenciais = $req->validate([
             'email' => 'required|email',

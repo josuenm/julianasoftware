@@ -1,0 +1,19 @@
+.excel-item-container {
+    @apply w-full p-2 bg-white rounded-md flex flex-col justify-between gap-4 shadow-sm;
+}
+
+.excel-item-filename {
+    @apply font-medium text-sm truncate;
+}
+
+.process-1 {
+    @apply text-orange-500;
+}
+
+.process-2 {
+    @apply text-red-500;
+}
+
+.process-3 {
+    @apply text-green-500;
+}

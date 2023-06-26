@@ -1,0 +1,7 @@
+::-webkit-scrollbar {
+    @apply w-[8px] h-[8px] bg-slate-100 rounded-full;
+}
+
+::-webkit-scrollbar-thumb {
+    @apply bg-primary/20 rounded-md;
+}

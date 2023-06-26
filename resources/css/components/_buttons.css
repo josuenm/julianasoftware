@@ -1,3 +1,15 @@
 .normal-btn {
-    @apply bg-primary text-white font-bold rounded-md px-8 py-2 duration-300 md:hover:opacity-70 w-full flex justify-center items-center gap-2 md:disabled:hover:opacity-100 disabled:opacity-50;
+    @apply bg-primary text-white font-bold rounded-md px-8 py-2 duration-300 md:hover:opacity-70 flex justify-center items-center gap-2 md:disabled:hover:opacity-100 disabled:opacity-20;
+}
+
+.soft-normal-btn {
+    @apply bg-primary/10 md:bg-transparent text-primary font-medium rounded-md px-8 py-2 duration-300 md:hover:bg-primary/10 flex justify-center items-center gap-2 md:disabled:hover:opacity-100 disabled:opacity-20;
+}
+
+.soft-normal-btn-red {
+    @apply bg-red-500/10 md:bg-transparent text-red-500 font-medium rounded-md px-8 py-2 duration-300 md:hover:bg-red-500/10 flex justify-center items-center gap-2 md:disabled:hover:opacity-100 disabled:opacity-20;
+}
+
+.normal-rounded-btn {
+    @apply bg-primary text-white font-bold rounded-full px-8 py-2 duration-300 md:hover:opacity-70 flex justify-center items-center gap-2 md:disabled:hover:opacity-100 disabled:opacity-20;
 }

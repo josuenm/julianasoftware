@@ -1,8 +1,14 @@
 @import "_tailwind.css";
+@import "_default.css";
+@import "_animate.css";
 
 /* COMEÇO: Componentes */
 @import "components/_inputs.css";
 @import "components/_safe-area.css";
 @import "components/_buttons.css";
 @import "components/_form.css";
+@import "components/_loading.css";
+@import "components/_alert.css";
+@import "components/_excel-item.css";
+@import "components/_base-modal.css";
 /* FIM: Componentes */

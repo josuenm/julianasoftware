@@ -1,0 +1,57 @@
+@keyframes firstBulletAnimate {
+    0%,
+    100% {
+        transform: translateX(40px);
+    }
+    50% {
+        transform: translateX(0);
+    }
+}
+
+@keyframes secondBulletAnimate {
+    0%,
+    100% {
+        transform: translateX(20px);
+    }
+    50% {
+        transform: translateX(0);
+    }
+}
+
+@keyframes loadingFadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes loadingFadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+#loading {
+    animation: loadingFadeIn 0.5s 1;
+}
+
+#loading.loadingFadeOut {
+    animation: loadingFadeOut 0.5s 1;
+}
+
+#bulletLoading::before {
+    content: ".";
+    @apply absolute left-0 text-primary text-7xl;
+    animation: firstBulletAnimate 3s infinite;
+}
+
+#bulletLoading::after {
+    content: ".";
+    @apply absolute left-0 text-primary text-7xl;
+    animation: secondBulletAnimate 3s infinite;
+}

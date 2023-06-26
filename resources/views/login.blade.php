@@ -3,10 +3,10 @@
 @section('title', 'Entrar')
 @section('content')
     <main class="safe-area min-h-screen flex justify-center items-center">
-        <form id="loginForm" method="POST" action="{{route('entrar.auth')}}" class="max-w-sm w-full bg-slate-100 px-12 py-5 rounded-md flex flex-col gap-3">
+        <form id="loginForm" method="POST" action="{{route('login.auth')}}" class="max-w-sm w-full bg-slate-100 px-12 py-5 rounded-md flex flex-col gap-3">
             @csrf
             <div class="text-center mb-8">
-                <h1 class="font-bold text-xl">Juliana Softwares<span class="text-primary text-4xl">.</span></h1>
+                <h3 class="font-bold text-xl">Juliana Softwares<span class="text-primary text-4xl">.</span></h3>
             </div>
 
             <div class="flex flex-col">
@@ -43,12 +43,12 @@
             @endif
 
             <div class="mt-4">
-                <button type="submit" id="loginBtn" class="normal-btn">Entrar</button>
+                <button type="submit" id="loginBtn" class="normal-btn w-full">Entrar</button>
             </div>
         </form>
     </main>
 @endsection
 
 @push('head-scripts')
-    @vite('resources/js/entrar.js')
+    @vite('resources/js/login.js')
 @endpush

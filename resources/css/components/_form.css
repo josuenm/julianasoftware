@@ -3,5 +3,5 @@
 }
 
 .spinner-loading-sm {
-    @apply w-4 h-4 ml-2 text-gray-200 animate-spin fill-blue-600;
+    @apply w-4 h-4 ml-2 text-gray-400 animate-spin fill-blue-600;
 }

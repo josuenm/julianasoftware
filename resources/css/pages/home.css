@@ -1,0 +1,15 @@
+#updateList {
+    @apply mb-4 text-center flex justify-center items-center;
+}
+
+#updateList.loading {
+    @apply text-orange-500;
+}
+
+#updateList .svgLoading {
+    @apply !fill-orange-500;
+}
+
+#updateList.success {
+    @apply text-green-500;
+}

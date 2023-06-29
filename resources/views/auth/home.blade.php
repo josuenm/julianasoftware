@@ -1,12 +1,22 @@
 @extends('layouts.base')
 
+@push('head-scripts')
+    @vite('resources/js/auth/home.js')
+@endpush
+@push('head-styles')
+    @vite('resources/css/pages/home.css')
+@endpush
+
 @section('title', 'Início')
 
 @section('content')
     <main class="safe-area py-12 w-full min-h-screen flex justify-center items-center">
         <div class="grid grid-cols-12 gap-8 min-h-[350px]">
-            <div id="excelList" class="col-span-12 lg:col-span-4 order-2 md:order-1 bg-primary/10 p-8 rounded-md min-w-xs w-full flex flex-col gap-6 max-h-[90vh] overflow-x-hidden overflow-y-auto">
+            <div class="col-span-12 lg:col-span-4 order-2 md:order-1 bg-primary/10 p-8 rounded-md w-full max-h-[90vh] overflow-x-hidden overflow-y-auto">
+                <p id="updateList"></p>
+
                 {{-- Lista gerada via AJAX --}}
+                <div id="excelList" class="flex flex-col gap-6"></div>
             </div>
             <div class="col-span-12 lg:col-span-8 order-1 md:order-2 bg-primary/10 p-8 rounded-md min-w-md w-full">
                 <h2 class="font-bold text-xl text-center">Importe um arquivo Excel</h2>
@@ -32,7 +42,3 @@
     @include('auth.components.inputModal')
     @include('components.baseModal')
 @endsection
-
-@push('head-scripts')
-    @vite('resources/js/auth/home.js')
-@endpush

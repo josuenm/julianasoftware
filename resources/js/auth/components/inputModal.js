@@ -1,3 +1,3 @@
 $("#inputModalBackground").on("click", function () {
-    $("#inputModal").hide();
+    fadeOut({ element: "#inputModal", hide: true });
 });

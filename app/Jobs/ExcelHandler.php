@@ -77,11 +77,22 @@ class ExcelHandler implements ShouldQueue
             array_push($rows, $worksheet->toArray());
         }
 
+        // pegar a variavel $rows e filtrar os números de telefone e colocar em data
+        // [] tirar todos parenteses, traços e espaços
+        // [] filtrar se ele ja existe na lista
+        // [] filtrar se ele tem uma sequencia de números repetidos
+
         $newSheet = new Spreadsheet();
+        $data = ['12992228437', '12992228437', '12992228437', '12992228437'];
 
         $newWorkSheet = $newSheet->getActiveSheet();
+        $newWorkSheet = $newSheet->getActiveSheet()->setTitle('Telefones');
         $newWorkSheet->fromArray(['telefone'], null, 'A1');
-        $newWorkSheet->fromArray(['12992228437', '12992228437', '12992228437', '12992228437'], null, 'A2');
+
+        foreach ($data as $index => $value) {
+            $row = $index + 2;
+            $newWorkSheet->setCellValue('A' . $row, $value);
+        }
 
         $writer = new Xlsx($newSheet);
 

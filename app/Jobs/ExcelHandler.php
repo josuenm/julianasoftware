@@ -22,6 +22,7 @@ class ExcelHandler implements ShouldQueue
     protected $excelPath;
     protected $column;
     protected $filename;
+    protected $excelImport;
 
     /**
      * Create a new job instance.
@@ -39,75 +40,122 @@ class ExcelHandler implements ShouldQueue
      */
     public function handle(): void
     {
-        $excelImport = new ExcelImport([
-            'user_id' => $this->userId,
-            'filename' => $this->filename
-        ]);
-        $excelImport->processing();
-        $excelImport->save();
+        try {
+            $this->excelImport = new ExcelImport([
+                'user_id' => $this->userId,
+                'filename' => $this->filename
+            ]);
+            $this->excelImport->processing();
+            $this->excelImport->save();
 
-        $spreadsheet = IOFactory::load($this->excelPath);
+            $spreadsheet = IOFactory::load($this->excelPath);
 
-        $firstWorksheet = $spreadsheet->getActiveSheet();
+            $firstWorksheet = $spreadsheet->getActiveSheet();
 
-        $rows = $firstWorksheet->toArray();
-        $headers = $rows[0];
-        $indexColumn = array_search($this->column, $headers);
-        array_shift($rows);
+            $rows = $firstWorksheet->toArray();
+            $headers = $rows[0];
+            $indexColumn = array_search($this->column, $headers);
+            array_shift($rows);
 
-        if (!$indexColumn) {
-            $excelImport->fail('A coluna ' . $this->column . ' não existe na planilha');
-            $excelImport->save();
-            throw new \Exception('A coluna ' . $this->column . ' não existe na planilha');
-        }
-
-        $worksheets = $spreadsheet->getAllSheets();
-        foreach ($worksheets as $worksheet) {
-            if ($worksheet === $firstWorksheet) continue;
-
-            $sheet = $worksheet->toArray();
-
-            for ($i = 0; $i < count($sheet); $i++) {
-                if ($this->isAllNull($sheet[$i])) {
-                    array_shift($sheet);
-                }
-                break;
+            if ($indexColumn === false) {
+                throw new \Exception('A coluna ' . $this->column . ' não existe na planilha');
             }
 
-            array_push($rows, $worksheet->toArray());
+            $worksheets = $spreadsheet->getAllSheets();
+            foreach ($worksheets as $worksheet) {
+                if ($worksheet === $firstWorksheet) continue;
+                array_push($rows, $worksheet->toArray());
+            }
+
+            $data = [];
+            foreach ($rows as $row) {
+                foreach ($row as $index) {
+                    if (!empty($index) && $this->isTel(strval($index))) {
+                        $data[] = $index;
+                    }
+                }
+            }
+
+            $dataFormatted = [];
+            foreach ($data as $item) {
+                $tel = $this->formatNumber($item);
+                if ($this->alreadyExist($dataFormatted, $tel)) continue;
+                if ($this->isSequence($tel)) continue;
+
+                $dataFormatted[] = $tel;
+            }
+
+            $newSheet = new Spreadsheet();
+
+            $newWorkSheet = $newSheet->getActiveSheet();
+            $newWorkSheet = $newSheet->getActiveSheet()->setTitle('Telefones');
+            $newWorkSheet->fromArray(['telefone'], null, 'A1');
+
+            foreach ($dataFormatted as $index => $value) {
+                $row = $index + 2;
+                $newWorkSheet->setCellValue('A' . $row, $value);
+            }
+
+            $writer = new Xlsx($newSheet);
+
+            $path = storage_path('app/public/' . $this->filename);
+
+            $writer->save($path);
+
+            File::delete($this->excelPath);
+
+            $this->excelImport->done($path);
+            $this->excelImport->save();
+        } catch (\Exception $error) {
+            $this->excelImport->fail($error->getMessage());
+            $this->excelImport->save();
+            File::delete($this->excelPath);
+            throw new \Exception();
         }
-
-        // pegar a variavel $rows e filtrar os números de telefone e colocar em data
-        // [] tirar todos parenteses, traços e espaços
-        // [] filtrar se ele ja existe na lista
-        // [] filtrar se ele tem uma sequencia de números repetidos
-
-        $newSheet = new Spreadsheet();
-        $data = ['12992228437', '12992228437', '12992228437', '12992228437'];
-
-        $newWorkSheet = $newSheet->getActiveSheet();
-        $newWorkSheet = $newSheet->getActiveSheet()->setTitle('Telefones');
-        $newWorkSheet->fromArray(['telefone'], null, 'A1');
-
-        foreach ($data as $index => $value) {
-            $row = $index + 2;
-            $newWorkSheet->setCellValue('A' . $row, $value);
-        }
-
-        $writer = new Xlsx($newSheet);
-
-        $path = storage_path('app/public/' . $this->filename);
-
-        $writer->save($path);
-
-        File::delete($this->excelPath);
-
-        $excelImport->done($path);
-        $excelImport->save();
     }
 
-    public function isAllNull($array)
+    private function isSequence($tel)
     {
-        return empty(array_filter($array, fn ($item) => !is_null($item)));
+        $digits = str_split($tel);
+        $sequence = 0;
+
+        for ($i = 0; $i < count($digits); $i++) {
+            if ($i > 0 && $digits[$i - 1] === $digits[$i]) {
+                $sequence++;
+            } else {
+                $sequence = 0;
+            }
+
+            if ($sequence >= 6) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private function alreadyExist($telList, $tel)
+    {
+        return in_array($tel, $telList);
+    }
+
+    private function formatNumber($tel)
+    {
+        return preg_replace('/[^0-9]/', '', strval($tel));
+    }
+
+    private function isAllNull($list)
+    {
+        return empty(array_filter($list, fn ($item) => !is_null($item)));
+    }
+
+    private function isTel($tel)
+    {
+        $clearTel = preg_replace('/\D/', '', $tel);
+        if (strlen($clearTel) <= 13) {
+            return true;
+        }
+
+        return false;
     }
 }

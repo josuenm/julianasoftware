@@ -20,6 +20,11 @@
                     @endif
                 </p>
             </div>
+            @if($status->id == '2')
+                <p class="{{ 'process-' . $status->id }}">
+                    Erro: {{$file->message}}
+                </p>
+            @endif
             <p class="{{ 'process-' . $status->id }}">
                 {{$status->title}}
             </p>

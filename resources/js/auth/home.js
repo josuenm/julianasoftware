@@ -24,6 +24,10 @@ function openInputModal() {
     fadeIn({ element: "#inputModal", show: true });
 }
 
+function closeInputModal() {
+    fadeOut({ element: "#inputModal", hide: true });
+}
+
 function handleWithImport() {
     $("#arquivoImportado").show();
     $("#nomeArquivoImportado").show();
@@ -128,14 +132,18 @@ function sendImport() {
         beforeSend: function () {
             loading(true);
         },
-        success: function (data) {
-            console.log(data);
-        },
         error: function (error) {
             const errorFormatted = errorHandler(error);
             pushError(errorFormatted);
         },
         complete: function () {
+            closeInputModal();
+            file = undefined;
+            $("#arquivoImportado").hide();
+            $("#nomeArquivoImportado").text("");
+            $("#nomeArquivoImportado").hide();
+            $("#labelImportarArquivo").text("Escolher arquivo");
+            $("#columnInput").val("");
             loading(false);
         },
     });

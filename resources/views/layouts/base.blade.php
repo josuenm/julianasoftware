@@ -7,7 +7,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}" />
 
     {{-- CSS --}}
-    @stack('head-styles')
+    @stack('css')
     @vite('resources/css/app.css')
 
     {{-- Scripts JS --}}

@@ -1,5 +1,5 @@
 .excel-item-container {
-    @apply w-full p-2 bg-white rounded-md flex flex-col justify-between gap-4 shadow-sm;
+    @apply col-span-12 md:col-span-6 w-full p-2 bg-white rounded-md flex flex-col justify-between gap-4 shadow-sm;
 }
 
 .excel-item-filename {

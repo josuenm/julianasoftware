@@ -3,7 +3,7 @@
 @push('head-scripts')
     @vite('resources/js/auth/home.js')
 @endpush
-@push('head-styles')
+@push('css')
     @vite('resources/css/pages/home.css')
 @endpush
 
@@ -11,17 +11,13 @@
 
 @section('content')
     <main class="safe-area py-12 w-full min-h-screen flex justify-center items-center">
-        <div class="grid grid-cols-12 gap-8 min-h-[350px]">
-            <div class="col-span-12 lg:col-span-4 order-2 md:order-1 bg-primary/10 p-8 rounded-md w-full max-h-[90vh] overflow-x-hidden overflow-y-auto">
-                <p id="updateList"></p>
+        <div class="w-full flex flex-col gap-8 min-h-[350px]">
+           @include('components.logo')
 
-                {{-- Lista gerada via AJAX --}}
-                <div id="excelList" class="flex flex-col gap-6"></div>
-            </div>
-            <div class="col-span-12 lg:col-span-8 order-1 md:order-2 bg-primary/10 p-8 rounded-md min-w-md w-full">
+            <div class="col-span-12 bg-primary/10 p-8 rounded-md min-w-md w-full">
                 <h2 class="font-bold text-xl text-center">Importe um arquivo Excel</h2>
 
-                <div class="mt-8 w-full flex flex-col justify-center items-center gap-6 py-12 bg-primary/20 rounded-md">
+                <div class="mt-8 w-full flex flex-col justify-center items-center gap-6 py-12 bg-primary/20 rounded-md min-h-[250px]">
                     <p id="nomeArquivoImportado" class="text-primary hidden"></p>
                     <label for="importarArquivo" id="labelImportarArquivo" class="normal-rounded-btn cursor-pointer">
                         Escolher arquivo
@@ -36,6 +32,12 @@
 
                     <button id="definirInputBtn" class="normal-rounded-btn mx-auto mt-8">Definir nome</button>
                 </div>
+            </div>
+            <div class="col-span-12 bg-primary/10 p-8 rounded-md w-full max-h-[90vh] overflow-x-hidden overflow-y-auto">
+                <p id="updateList"></p>
+
+                {{-- Lista gerada via AJAX --}}
+                <div id="excelList" class="grid grid-cols-12 gap-6"></div>
             </div>
         </div>
     </main>

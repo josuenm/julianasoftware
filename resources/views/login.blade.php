@@ -5,9 +5,7 @@
     <main class="safe-area min-h-screen flex justify-center items-center">
         <form id="loginForm" method="POST" action="{{route('login.auth')}}" class="max-w-sm w-full bg-slate-100 px-12 py-5 rounded-md flex flex-col gap-3">
             @csrf
-            <div class="text-center mb-8">
-                <h3 class="font-bold text-xl">Juliana Softwares<span class="text-primary text-4xl">.</span></h3>
-            </div>
+            @include('components.logo')
 
             <div class="flex flex-col">
                 <label for="email">Email</label>

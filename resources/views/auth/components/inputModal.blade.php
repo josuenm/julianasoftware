@@ -13,6 +13,27 @@
             Abra seu arquivo Excel e escolha o nome da coluna que você quer filtrar o número de telefone
         </p>
 
+        <div class="my-4">
+            <div class="switchButtonContainer">
+                <label for="deleteSequence">Excluir números com sequência</label>
+                <x-switch-input
+                    :inputId="'deleteSequence'"
+                    :inputName="'deleteSequence'"
+                    :switchId="'deleteSwitchId'"
+                    :active="true"
+                    :disabled="true" />
+            </div>
+            <div class="switchButtonContainer">
+                <label for="deleteRepeated">Excluir números repetidos</label>
+                <x-switch-input
+                    :inputId="'deleteRepeated'"
+                    :inputName="'deleteRepeated'"
+                    :switchId="'deleteSwitchId'"
+                    :active="true"
+                    :disabled="true" />
+            </div>
+        </div>
+
         <div class="w-full mt-8 flex flex-col gap-2">
             <label for="">Escolha o nome</label>
             <input type="text" id="columnInput" class="normal-input w-full" placeholder="Digite o nome da coluna...">

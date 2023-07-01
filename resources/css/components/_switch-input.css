@@ -1,0 +1,26 @@
+.switchButtonContainer {
+    @apply py-4 flex justify-between items-center border-b;
+}
+
+.switch-input {
+    @apply relative w-12 h-6 rounded-full bg-neutral-200 duration-300 cursor-pointer;
+}
+.switch-input:hover .switch-input-focus {
+    @apply brightness-105;
+}
+.switch-input-focus {
+    @apply absolute top-2/4 right-[30%] -translate-y-2/4 -translate-x-2/4 w-5 h-5 rounded-full bg-neutral-400 duration-300;
+}
+
+.switch-input.disabled {
+    @apply opacity-50;
+}
+.switch-input.disabled .switch-input-focus {
+    @apply opacity-20;
+}
+.switch-input.active {
+    @apply bg-primary/20;
+}
+.switch-input.active .switch-input-focus {
+    @apply bg-primary -right-[15%];
+}

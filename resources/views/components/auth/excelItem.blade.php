@@ -44,5 +44,5 @@
 
     @endforeach
 @else
-    <p class="text-primary text-center">Você não tem nenhuma importação</p>
+    <p class="text-primary text-center col-span-12">Você não tem nenhuma importação</p>
 @endif

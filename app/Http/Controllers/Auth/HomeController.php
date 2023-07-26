@@ -19,7 +19,7 @@ class HomeController extends Controller
     public function getImports()
     {
         $files = ExcelImport::orderBy('created_at', 'desc')->where('user_id', auth()->id())->get();
-        return view('auth.components.excelItem', compact('files'));
+        return view('components.auth.excelItem', compact('files'));
     }
 
     public function deleteFile(Request $req, $id)

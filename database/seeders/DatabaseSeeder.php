@@ -16,10 +16,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        if (!User::where('email', 'juliana12091312937@gmail.com')->exists()) {
+        if (!User::where('email', 'juliana@gmail.com')->exists()) {
             User::factory()->create([
                 'name' => 'Juliana',
-                'email' => 'juliana12091312937@gmail.com',
+                'email' => 'juliana@gmail.com',
                 'password' => Hash::make('Juliana123')
             ]);
         }

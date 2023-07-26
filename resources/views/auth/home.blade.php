@@ -34,13 +34,16 @@
                 </div>
             </div>
             <div class="col-span-12 bg-primary/10 p-8 rounded-md w-full max-h-[90vh] overflow-x-hidden overflow-y-auto">
-                <p id="updateList"></p>
+                <div class="flex items-center justify-between mb-8">
+                    <button id="updateListBtn" class="soft-normal-btn">Atualizar lista</button>
+                    <p id="updateList"></p>
+                </div>
 
                 {{-- Lista gerada via AJAX --}}
                 <div id="excelList" class="grid grid-cols-12 gap-6"></div>
             </div>
         </div>
     </main>
-    @include('auth.components.inputModal')
+    @include('components.auth.inputModal')
     @include('components.baseModal')
 @endsection

@@ -155,7 +155,7 @@ $("#inputModalFinalizar").on("click", sendImport);
 $(document).on("DOMContentLoaded", async function () {
     await getImports();
 
-    setInterval(() => {
+    $("#updateListBtn").on("click", function () {
         getImports();
-    }, 5000);
+    });
 });
